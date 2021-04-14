@@ -1,0 +1,3950 @@
+@mixin prefix($property, $value, $prefixes: ()) {
+    @each $prefix in $prefixes {
+        #{'-' + $prefix + '-' + $property}: $value;
+    }
+    #{$property}: $value;
+}
+@mixin opacity($opacity) {
+    filter: alpha(opacity=$opacity * 100);
+    opacity: $opacity;
+}
+@mixin opacity-important($opacity) {
+    filter: alpha(opacity=$opacity * 100)!important;
+    opacity: $opacity!important;
+}
+@mixin transition($transition) {
+    -webkit-transition: all $transition;
+    -o-transition: all $transition;
+    -ms-transition: all $transition;
+    -moz-transition: all $transition;
+    transition: all $transition;
+}
+@mixin transition-type($type, $transition) {
+    -webkit-transition: $type $transition;
+    -o-transition: $type $transition;
+    -ms-transition: $type $transition;
+    -moz-transition: $type $transition;
+    transition: $type $transition;
+}
+@mixin transition-none {
+    -webkit-transition: none!important;
+    -o-transition: none!important;
+    -ms-transition: none!important;
+    -moz-transition: none!important;
+    transition: none!important;
+}
+@mixin round {
+    border-radius: 1000px;
+}
+@mixin border-radius($radius) {
+    border-radius: $radius+px;
+}
+@mixin center-x {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+@mixin center-y {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+@mixin center-xy {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+@mixin reset-pos {
+    position: static;
+    top: auto;
+    left: auto;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+}
+@mixin pos-xy($xpos, $ypos) {
+    position: absolute;
+    top: percentage($ypos);
+    left: percentage($xpos);
+    -webkit-transform: translate(-(percentage($xpos)),-(percentage($ypos)));
+    -moz-transform: translate(-(percentage($xpos)),-(percentage($ypos)));
+    -ms-transform: translate(-(percentage($xpos)),-(percentage($ypos)));
+    -o-transform: translate(-(percentage($xpos)),-(percentage($ypos)));
+    transform: translate(-(percentage($xpos)),-(percentage($ypos)));
+}
+@mixin tri-down($size, $color, $radius, $padding) {
+    @include border-radius($radius);
+    position: relative;
+    background: $color;
+    padding: $padding;
+    margin-top: ($size * 2)+px;
+    &:before {
+        @include center-x;
+        content: "";
+        display: block;
+        position: absolute;
+        top: -($size * 2)+px;
+        width: 0;
+        height: 0;
+        border: $size+px solid transparent;
+        border-bottom: $size+px solid $color;
+    }
+}
+@mixin tri-up($size, $color, $radius, $padding) {
+    @include border-radius($radius);
+    position: relative;
+    background: $color;
+    padding: $padding;
+    margin-bottom: ($size * 2)+px;
+    &:after {
+        @include center-x;
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -($size * 2)+px;
+        width: 0;
+        height: 0;
+        border: $size+px solid transparent;
+        border-top: $size+px solid $color;
+    }
+}
+@mixin flex {
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+}
+@mixin flex-important {
+    -ms-box-orient: horizontal!important;
+    display: -webkit-box!important;
+    display: -moz-box!important;
+    display: -ms-flexbox!important;
+    display: -moz-flex!important;
+    display: -webkit-flex!important;
+    display: flex!important;
+}
+@mixin flex-column {
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+@mixin flex-wrap {
+    -ms-flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+@mixin flex-center {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-align-content: center;
+    align-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+@mixin flex-center-column {
+    -webkit-flex-direction:column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+@mixin flex-center-vertical {
+    -webkit-align-content: center;
+    align-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+@mixin flex-left-center {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+}
+@mixin flex-right-center {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+@mixin flex-bottom {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+@mixin flex-reset {
+    display: block;
+}
+@mixin flex-stretch {
+    -webkit-align-items: stretch!important;
+    align-items: stretch!important;
+    -webkit-align-content: stretch!important;
+    align-content: stretch!important;
+}
+@mixin flex-stretch-impt {
+    -webkit-align-items:stretch !important;
+    align-items: stretch !important;
+    -webkit-align-content: stretch !important;
+    align-content: stretch !important;
+}
+@mixin listless {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+@mixin translate($xpos, $ypos) {
+    -webkit-transform: translate($xpos,$ypos);
+    -moz-transform: translate($xpos,$ypos);
+    -ms-transform: translate($xpos,$ypos);
+    -o-transform: translate($xpos,$ypos);
+    transform: translate($xpos,$ypos);
+}
+@mixin translate-x($xpos) {
+    -webkit-transform: translateX($xpos);
+    -moz-transform: translateX($xpos);
+    -ms-transform: translateX($xpos);
+    -o-transform: translateX($xpos);
+    transform: translateX($xpos);
+}
+@mixin translate-y($ypos) {
+    -webkit-transform: translateY($ypos);
+    -moz-transform: translateY($ypos);
+    -ms-transform: translateY($ypos);
+    -o-transform: translateY($ypos);
+    transform: translateY($ypos);
+}
+@mixin transform-origin($origin) {
+    -webkit-transform-origin: $origin;
+    -moz-transform-origin: $origin;
+    -ms-transform-origin: $origin;
+    -o-transform-origin: $origin;
+    transform-origin: $origin;
+}
+@mixin blur($blur) {
+    filter: blur($blur+px);
+    -webkit-filter: blur($blur+px);
+    -moz-filter: blur($blur+px);
+    -o-filter: blur($blur+px);
+    -ms-filter: blur($blur+px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='#{$blur}');
+}
+@mixin rotate($angle) {
+    -webkit-transform: rotate($angle+deg);
+    -moz-transform: rotate($angle+deg);
+    -ms-transform: rotate($angle+deg);
+    -o-transform: rotate($angle+deg);
+    transform: rotate($angle+deg);
+}
+@mixin scale($scale) {
+    -webkit-transform: scale($scale);
+    -moz-transform: scale($scale);
+    -ms-transform: scale($scale);
+    -o-transform: scale($scale);
+    transform: scale($scale);
+}
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+@mixin transform-reset {
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin appearance {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+@mixin animation-direction($direction) {
+    -webkit-animation-direction: $direction;
+    -moz-animation-direction: $direction;
+    -o-animation-directionn: $direction;
+    animation-direction: $direction;
+}
+@mixin animation-timing-function($timing) {
+    -webkit-animation-timing-function: $timing;
+    -moz-animation-timing-function: $timing;
+    -o-animation-timing-function: $timing;
+    animation-timing-function: $timing;
+}
+@mixin animation-duration($duration) {
+    -webkit-animation-duration: $duration;
+    -moz-animation-duration: $duration;
+    -o-animation-duration: $duration;
+    animation-duration: $duration;
+}
+@mixin animation-fill-mode($mode) {
+    -webkit-animation-fill-mode: $mode;
+    -moz-animation-fill-mode: $mode;
+    -o-animation-fill-mode: $mode;
+    animation-fill-mode: $mode;
+}
+@mixin animation-delay($delay) {
+    -webkit-animation-delay: $delay;
+    -moz-animation-delay: $delay;
+    -o-animation-delay: $delay;
+    animation-delay: $delay;
+}
+@mixin animation-iteration-count($count) {
+    -webkit-animation-iteration-count: $count;
+    -moz-animation-iteration-count: $count;
+    -o-animation-iteration-count: $count;
+    animation-iteration-count: $count;
+}
+@mixin animation-name($name) {
+    -webkit-animation-name: $name;
+    -moz-animation-name: $name;
+    -o-animation-name: $name;
+    animation-name: $name;
+}
+
+@mixin box-sizing {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@mixin box-sizing-important {
+    -webkit-box-sizing: border-box!important;
+    -moz-box-sizing: border-box!important;
+    box-sizing: border-box!important;
+}
+
+@mixin svg-stroke($stroke, $width) {
+    fill: none;
+    stroke: $stroke;
+    stroke-width: $width+px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+@mixin svg-stroke-width($width) {
+    fill: none;
+    stroke-width: $width+px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+$links: 'a:active, a:focus, a:hover';
+$buttons: 'button:active, button:hover, button:focus, a[class*=btn]:active, a[class*=btn]:focus, a[class*=btn]:hover';
+
+
+$charcoal: #2B3234;
+$slate: #40484B;
+$taupe: #757575;
+$campus: #8A9EA3;
+$smoke: #F1F1F1;
+
+$rocket: #696269;
+$shamrock: #69B3A5;
+$robin: #2BB3B8;
+$lake: #50A5DD;
+
+$moxie: #43cb9d;
+$crimson: #d3242c;
+
+$auburn: #F04F54;
+$orange: #E5753C;
+$gold: #F6C64E;
+$moola: #81B566;
+$azure: #55A4B7;
+$cobalt: #7872e3;
+$eggplant: #9A5BC5;
+$cerise: #e6389b;
+
+$first: #e8c480;
+$second: #c8bbc9;
+$third: #c5857c;
+
+$facebook: #3b5998;
+$facebook-light: #6279B1;
+$instagram: #517fa4;
+$linkedin: #007bb6;
+$twitter: #00aced;
+
+$beige: #FFFDFA;
+
+// $gabrielle: #958B8E;
+$gabrielle: $shamrock;
+
+$padding: 15px;
+
+$icon-bg: no-repeat center center;
+
+$font: "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif!important;
+
+/* ---------- BUTTONS AND INPUT */
+button, input, textarea {
+    @include appearance;
+    font-family: $font;
+}
+
+// buttons
+.bg {
+    svg {
+        * {
+            stroke: white;
+        }
+    }
+    &.bg-charcoal {
+        background: $charcoal;
+        &:hover, &:focus {
+            background: mix($charcoal, white);
+            color: $charcoal;
+        }
+        &:active {
+            background: mix($charcoal, white, 75%);
+            color: white;
+        }
+    }
+    &.bg-slate {
+        background: $slate;
+        &:hover, &:focus {
+            background: mix($slate, white);
+            color: $slate;
+        }
+        &:active {
+            background: mix($slate, white, 75%);
+            color: white;
+        }
+    }
+    &.bg-taupe {
+        background: $taupe;
+        &:hover, &:focus {
+            background: mix($taupe, white);
+            color: $taupe;
+        }
+        &:active {
+            background: mix($taupe, white, 75%);
+            color: white;
+        }
+    }
+    &.bg-campus {
+        background: $campus;
+        &:hover, &:focus {
+            background: mix($campus, white);
+            color: mix($campus, $slate);
+        }
+        &:active {
+            background: mix($campus, $slate);
+            color: white;
+        }
+    }
+    &.bg-rocket {
+        background: $rocket;
+        &:hover, &:focus {
+            background: mix($rocket, white);
+            color: mix($rocket, $slate);
+        }
+        &:active {
+            background: mix($rocket, $slate);
+            color: white;
+        }
+    }
+    &.bg-shamrock {
+        background: $shamrock;
+        &:hover, &:focus {
+            background: mix($shamrock, white);
+            color: mix($shamrock, $slate);
+        }
+        &:active {
+            background: mix($shamrock, $slate);
+            color: white;
+        }
+    }
+    &.bg-robin {
+        background: $robin;
+        &:hover, &:focus {
+            background: mix($robin, white);
+            color: mix($robin, $slate);
+        }
+        &:active {
+            background: mix($robin, $slate);
+            color: white;
+        }
+    }
+    &.bg-lake {
+        background: $lake;
+        &:hover, &:focus {
+            background: mix($lake, white);
+            color: mix($lake, $slate);
+        }
+        &:active {
+            background: mix($lake, $slate);
+            color: white;
+        }
+    }
+    &.bg-moxie {
+        background: $moxie;
+        &:hover, &:focus {
+            background: mix($moxie, white);
+            color: mix($moxie, $slate);
+        }
+        &:active {
+            background: mix($moxie, $slate);
+            color: white;
+        }
+    }
+    &.bg-crimson {
+        background: $crimson;
+        &:hover, &:focus {
+            background: mix($crimson, white);
+            color: mix($crimson, $slate);
+        }
+        &:active {
+            background: mix($crimson, $slate);
+            color: white;
+        }
+    }
+    &.bg-auburn, &.bg-delivery {
+        background: $auburn;
+        &:hover, &:focus {
+            background: mix($auburn, white);
+            color: mix($auburn, $slate);
+        }
+        &:active {
+            background: mix($auburn, $slate);
+            color: white;
+        }
+    }
+    &.bg-orange, &.bg-freelancing {
+        background: $orange;
+        &:hover, &:focus {
+            background: mix($orange, white);
+            color: mix($orange, $slate);
+        }
+        &:active {
+            background: mix($orange, $slate);
+            color: white;
+        }
+    }
+    &.bg-gold, &.bg-baking {
+        background: $gold;
+        &:hover, &:focus {
+            background: mix($gold, white);
+            color: mix($gold, $slate);
+        }
+        &:active {
+            background: mix($gold, $slate);
+            color: white;
+        }
+    }
+    &.bg-moola, &.bg-photography {
+        background: $moola;
+        &:hover, &:focus {
+            background: mix($moola, white);
+            color: mix($moola, $slate);
+        }
+        &:active {
+            background: mix($moola, $slate);
+            color: white;
+        }
+    }
+    &.bg-azure, &.bg-tech {
+        background: $azure;
+        &:hover, &:focus {
+            background: mix($azure, white);
+            color: mix($azure, $slate);
+        }
+        &:active {
+            background: mix($azure, $slate);
+            color: white;
+        }
+    }
+    &.bg-cobalt, &.bg-household {
+        background: $cobalt;
+        &:hover, &:focus {
+            background: mix($cobalt, white);
+            color: mix($cobalt, $slate);
+        }
+        &:active {
+            background: mix($cobalt, $slate);
+            color: white;
+        }
+    }
+    &.bg-eggplant, &.bg-athletic {
+        background: $eggplant;
+        &:hover, &:focus {
+            background: mix($eggplant, white);
+            color: mix($eggplant, $slate);
+        }
+        &:active {
+            background: mix($eggplant, $slate);
+            color: white;
+        }
+    }
+    &.bg-cerise, &.bg-academic {
+        background: $cerise;
+        &:hover, &:focus {
+            background: mix($cerise, white);
+            color: mix($cerise, $slate);
+        }
+        &:active {
+            background: mix($cerise, $slate);
+            color: white;
+        }
+    }
+}
+button {
+    cursor: pointer;
+    width: 100%;
+    height: 64px;
+    border: 0;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: $shamrock;
+    svg {
+        * {
+            stroke: white;
+        }
+    }
+    &.normal {
+        width: auto;
+    }
+    &.width-300 {
+        width: 300px;
+    }
+    &.width-400 {
+        width: 400px;
+    }
+    &.height-54 {
+        height: 54px
+    }
+    &.height-48 {
+        height: 48px
+    }
+    &.height-36 {
+        height: 36px
+    }
+    &:hover, &:focus {
+        background: mix($shamrock, white);
+        color: mix($shamrock, $slate);
+        svg {
+            * {
+                stroke: mix($shamrock, $slate);
+            }
+        }
+    }
+    &:active {
+        background: mix($shamrock, $slate);
+        color: white;
+        svg {
+            * {
+                stroke: white;
+            }
+        }
+    }
+    &.bg-charcoal {
+        background: $charcoal;
+        &:hover, &:focus {
+            background: mix($charcoal, white);
+            color: $charcoal;
+            svg {
+                * {
+                    stroke: $charcoal;
+                }
+            }
+        }
+        &:active {
+            background: mix($charcoal, white, 75%);
+            color: white;
+            svg {
+                * {
+                    stroke: white;
+                }
+            }
+        }
+        &.reverse {
+            background: white;
+            color: $charcoal;
+            svg {
+                * {
+                    stroke: $charcoal;
+                }
+            }
+            &:hover, &:focus {
+                background: mix($charcoal, white);
+                color: $charcoal;
+                svg {
+                    * {
+                        stroke: $charcoal;
+                    }
+                }
+            }
+            &:active {
+                background: mix($charcoal, white, 75%);
+                color: white;
+                svg {
+                    * {
+                        stroke: white;
+                    }
+                }
+            }
+        }
+    }
+    &.bg-slate {
+        background: $slate;
+        &:hover, &:focus {
+            background: mix($slate, white);
+            color: $slate;
+            svg {
+                * {
+                    stroke: $slate;
+                }
+            }
+        }
+        &:active {
+            background: mix($slate, white, 75%);
+            color: white;
+            svg {
+                * {
+                    stroke: white;
+                }
+            }
+        }
+        &.reverse {
+            background: white;
+            color: $slate;
+            svg {
+                * {
+                    stroke: $slate;
+                }
+            }
+            &:hover, &:focus {
+                background: mix($slate, white);
+                color: $slate;
+                svg {
+                    * {
+                        stroke: $slate;
+                    }
+                }
+            }
+            &:active {
+                background: mix($slate, white, 75%);
+                color: white;
+                svg {
+                    * {
+                        stroke: white;
+                    }
+                }
+            }
+        }
+    }
+    &.bg-taupe {
+        background: $taupe;
+        &:hover, &:focus {
+            background: mix($taupe, white);
+            color: $taupe;
+            svg {
+                * {
+                    stroke: $taupe;
+                }
+            }
+        }
+        &:active {
+            background: mix($taupe, white, 75%);
+            color: white;
+            svg {
+                * {
+                    stroke: white;
+                }
+            }
+        }
+        &.reverse {
+            background: white;
+            color: $taupe;
+            &:hover, &:focus {
+                background: mix($taupe, white);
+                color: $taupe;
+                svg {
+                    * {
+                        stroke: $taupe;
+                    }
+                }
+            }
+            &:active {
+                background: mix($taupe, white, 75%);
+                color: white;
+                svg {
+                    * {
+                        stroke: white;
+                    }
+                }
+            }
+        }
+    }
+    &.bg-campus {
+        background: $campus;
+        &:hover, &:focus {
+            background: mix($campus, white);
+            color: mix($campus, $slate);
+        }
+        &:active {
+            background: mix($campus, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $campus;
+            &:hover, &:focus {
+                background: mix($campus, white);
+                color: mix($campus, $slate);
+            }
+            &:active {
+                background: mix($campus, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-rocket {
+        background: $rocket;
+        &:hover, &:focus {
+            background: mix($rocket, white);
+            color: mix($rocket, $slate);
+        }
+        &:active {
+            background: mix($rocket, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $rocket;
+            &:hover, &:focus {
+                background: mix($rocket, white);
+                color: mix($rocket, $slate);
+            }
+            &:active {
+                background: mix($rocket, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-shamrock {
+        background: $shamrock;
+        &:hover, &:focus {
+            background: mix($shamrock, white);
+            color: mix($shamrock, $slate);
+        }
+        &:active {
+            background: mix($shamrock, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $shamrock;
+            &:hover, &:focus {
+                background: mix($shamrock, white);
+                color: mix($shamrock, $slate);
+            }
+            &:active {
+                background: mix($shamrock, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-robin {
+        background: $robin;
+        &:hover, &:focus {
+            background: mix($robin, white);
+            color: mix($robin, $slate);
+        }
+        &:active {
+            background: mix($robin, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $robin;
+            &:hover, &:focus {
+                background: mix($robin, white);
+                color: mix($robin, $slate);
+            }
+            &:active {
+                background: mix($robin, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-lake {
+        background: $lake;
+        &:hover, &:focus {
+            background: mix($lake, white);
+            color: mix($lake, $slate);
+        }
+        &:active {
+            background: mix($lake, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $lake;
+            &:hover, &:focus {
+                background: mix($lake, white);
+                color: mix($lake, $slate);
+            }
+            &:active {
+                background: mix($lake, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-moxie {
+        background: $moxie;
+        &:hover, &:focus {
+            background: mix($moxie, white);
+            color: mix($moxie, $slate);
+        }
+        &:active {
+            background: mix($moxie, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $moxie;
+            &:hover, &:focus {
+                background: mix($moxie, white);
+                color: mix($moxie, $slate);
+            }
+            &:active {
+                background: mix($moxie, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-crimson {
+        background: $crimson;
+        &:hover, &:focus {
+            background: mix($crimson, white);
+            color: mix($crimson, $slate);
+        }
+        &:active {
+            background: mix($crimson, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $crimson;
+            &:hover, &:focus {
+                background: mix($crimson, white);
+                color: mix($crimson, $slate);
+            }
+            &:active {
+                background: mix($crimson, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-auburn, &.bg-delivery {
+        background: $auburn;
+        &:hover, &:focus {
+            background: mix($auburn, white);
+            color: mix($auburn, $slate);
+        }
+        &:active {
+            background: mix($auburn, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $auburn;
+            &:hover, &:focus {
+                background: mix($auburn, white);
+                color: mix($auburn, $slate);
+            }
+            &:active {
+                background: mix($auburn, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-orange, &.bg-freelancing {
+        background: $orange;
+        &:hover, &:focus {
+            background: mix($orange, white);
+            color: mix($orange, $slate);
+        }
+        &:active {
+            background: mix($orange, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $orange;
+            &:hover, &:focus {
+                background: mix($orange, white);
+                color: mix($orange, $slate);
+            }
+            &:active {
+                background: mix($orange, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-gold, &.bg-baking {
+        background: $gold;
+        &:hover, &:focus {
+            background: mix($gold, white);
+            color: mix($gold, $slate);
+        }
+        &:active {
+            background: mix($gold, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $gold;
+            &:hover, &:focus {
+                background: mix($gold, white);
+                color: mix($gold, $slate);
+            }
+            &:active {
+                background: mix($gold, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-moola, &.bg-photography {
+        background: $moola;
+        &:hover, &:focus {
+            background: mix($moola, white);
+            color: mix($moola, $slate);
+        }
+        &:active {
+            background: mix($moola, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $moola;
+            &:hover, &:focus {
+                background: mix($moola, white);
+                color: mix($moola, $slate);
+            }
+            &:active {
+                background: mix($moola, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-azure, &.bg-tech {
+        background: $azure;
+        &:hover, &:focus {
+            background: mix($azure, white);
+            color: mix($azure, $slate);
+        }
+        &:active {
+            background: mix($azure, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $azure;
+            &:hover, &:focus {
+                background: mix($azure, white);
+                color: mix($azure, $slate);
+            }
+            &:active {
+                background: mix($azure, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-cobalt, &.bg-household {
+        background: $cobalt;
+        &:hover, &:focus {
+            background: mix($cobalt, white);
+            color: mix($cobalt, $slate);
+        }
+        &:active {
+            background: mix($cobalt, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $cobalt;
+            &:hover, &:focus {
+                background: mix($cobalt, white);
+                color: mix($cobalt, $slate);
+            }
+            &:active {
+                background: mix($cobalt, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-eggplant, &.bg-athletic {
+        background: $eggplant;
+        &:hover, &:focus {
+            background: mix($eggplant, white);
+            color: mix($eggplant, $slate);
+        }
+        &:active {
+            background: mix($eggplant, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $eggplant;
+            &:hover, &:focus {
+                background: mix($eggplant, white);
+                color: mix($eggplant, $slate);
+            }
+            &:active {
+                background: mix($eggplant, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-cerise, &.bg-academic {
+        background: $cerise;
+        &:hover, &:focus {
+            background: mix($cerise, white);
+            color: mix($cerise, $slate);
+        }
+        &:active {
+            background: mix($cerise, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $cerise;
+            &:hover, &:focus {
+                background: mix($cerise, white);
+                color: mix($cerise, $slate);
+            }
+            &:active {
+                background: mix($cerise, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-fb {
+        background: $facebook;
+        &:hover, &:focus {
+            background: mix($facebook, white);
+            color: mix($facebook, $slate);
+        }
+        &:active {
+            background: mix($facebook, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $facebook;
+            &:hover, &:focus {
+                background: mix($facebook, white);
+                color: mix($facebook, $slate);
+            }
+            &:active {
+                background: mix($facebook, $slate);
+                color: white;
+            }
+        }
+    }
+}
+button.disabled {
+    @include opacity(.7);
+}
+
+// ghost buttons
+[class*="btn-ghost"] {
+    @include round;
+    width: auto;
+    height: auto;
+    background: transparent;
+    padding: 10px 30px;
+    border: 2px solid;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    &:hover, &:focus {
+        background: white;
+        color: $charcoal;
+    }
+    &:active {
+        border-color: lighten($slate, 15%);
+        background: lighten($slate, 15%);
+        color: white;
+    }
+    &[class*="btn-ghost-charcoal"] {
+        color: $charcoal;
+        border-color: $charcoal;
+        &:hover, &:focus {
+            border-color: $charcoal;
+            background: $charcoal;
+            color: white;
+        }
+        &:active {
+            border-color: mix($charcoal, white);
+            background: mix($charcoal, white);
+            color: $charcoal;
+        }
+    }
+    &[class*="btn-ghost-slate"] {
+        color: $slate;
+        border-color: $slate;
+        &:hover, &:focus {
+            border-color: $slate;
+            background: $slate;
+            color: white;
+        }
+        &:active {
+            border-color: mix($slate, white);
+            background: mix($slate, white);
+            color: $slate;
+        }
+    }
+    &[class*="btn-ghost-taupe"] {
+        color: $taupe;
+        border-color: $taupe;
+        &:hover, &:focus {
+            border-color: $taupe;
+            background: $taupe;
+            color: white;
+        }
+        &:active {
+            border-color: mix($taupe, white);
+            background: mix($taupe, white);
+            color: $taupe;
+        }
+    }
+    &[class*="btn-ghost-campus"] {
+        color: $campus;
+        border-color: $campus;
+        &:hover, &:focus {
+            border-color: $campus;
+            background: $campus;
+            color: white;
+        }
+        &:active {
+            border-color: mix($campus, white);
+            background: mix($campus, white);
+            color: mix($campus, $slate);
+        }
+    }
+    &[class*="btn-ghost-smoke"] {
+        color: $smoke;
+        border-color: $smoke;
+        &:hover, &:focus {
+            border-color: $smoke;
+            background: $smoke;
+            color: white;
+        }
+        &:active {
+            border-color: lighten($slate, 15%);
+            background: lighten($slate, 15%);
+            color: white;
+        }
+    }
+    &[class*="btn-ghost-white"] {
+        color: white;
+        border-color: white;
+        &:hover, &:focus {
+            border-color: white;
+            background: white;
+            color: $charcoal;
+        }
+        &:active {
+            border-color: lighten($slate, 15%);
+            background: lighten($slate, 15%);
+            color: white;
+        }
+    }
+    &[class*="btn-ghost-rocket"] {
+        color: $rocket;
+        border-color: $rocket;
+        &:hover, &:focus {
+            border-color: $rocket;
+            background: $rocket;
+            color: white;
+        }
+        &:active {
+            border-color: mix($rocket, white);
+            background: mix($rocket, white);
+            color: mix($rocket, $slate);
+        }
+    }
+    &[class*="btn-ghost-shamrock"] {
+        color: $shamrock;
+        border-color: $shamrock;
+        &:hover, &:focus {
+            border-color: $shamrock;
+            background: $shamrock;
+            color: white;
+        }
+        &:active {
+            border-color: mix($shamrock, white);
+            background: mix($shamrock, white);
+            color: mix($shamrock, $slate);
+        }
+    }
+    &[class*="btn-ghost-robin"] {
+        color: $robin;
+        border-color: $robin;
+        &:hover, &:focus {
+            border-color: $robin;
+            background: $robin;
+            color: white;
+        }
+        &:active {
+            border-color: mix($robin, white);
+            background: mix($robin, white);
+            color: mix($robin, $slate);
+        }
+    }
+    &[class*="btn-ghost-lake"] {
+        color: $lake;
+        border-color: $lake;
+        &:hover, &:focus {
+            border-color: $lake;
+            background: $lake;
+            color: white;
+        }
+        &:active {
+            border-color: mix($lake, white);
+            background: mix($lake, white);
+            color: mix($lake, $slate);
+        }
+    }
+    &[class*="btn-ghost-moxie"] {
+        color: $moxie;
+        border-color: $moxie;
+        &:hover, &:focus {
+            border-color: $moxie;
+            background: $moxie;
+            color: white;
+        }
+        &:active {
+            border-color: mix($moxie, white);
+            background: mix($moxie, white);
+            color: mix($moxie, $slate);
+        }
+    }
+    &[class*="btn-ghost-crimson"] {
+        color: $crimson;
+        border-color: $crimson;
+        &:hover, &:focus {
+            border-color: $crimson;
+            background: $crimson;
+            color: white;
+        }
+        &:active {
+            border-color: mix($crimson, white);
+            background: mix($crimson, white);
+            color: mix($crimson, $slate);
+        }
+    }
+    &[class*="btn-ghost-auburn"], &[class*="btn-ghost-delivery"] {
+        color: $auburn;
+        border-color: $auburn;
+        &:hover, &:focus {
+            border-color: $auburn;
+            background: $auburn;
+            color: white;
+        }
+        &:active {
+            border-color: mix($auburn, white);
+            background: mix($auburn, white);
+            color: mix($auburn, $slate);
+        }
+    }
+    &[class*="btn-ghost-orange"], &[class*="btn-ghost-freelancing"] {
+        color: $orange;
+        border-color: $orange;
+        &:hover, &:focus {
+            border-color: $orange;
+            background: $orange;
+            color: white;
+        }
+        &:active {
+            border-color: mix($orange, white);
+            background: mix($orange, white);
+            color: mix($orange, $slate);
+        }
+    }
+    &[class*="btn-ghost-gold"], &[class*="btn-ghost-baking"] {
+        color: $gold;
+        border-color: $gold;
+        &:hover, &:focus {
+            border-color: $gold;
+            background: $gold;
+            color: white;
+        }
+        &:active {
+            border-color: mix($gold, white);
+            background: mix($gold, white);
+            color: mix($gold, $slate);
+        }
+    }
+    &[class*="btn-ghost-moola"], &[class*="btn-ghost-photography"] {
+        color: $moola;
+        border-color: $moola;
+        &:hover, &:focus {
+            border-color: $moola;
+            background: $moola;
+            color: white;
+        }
+        &:active {
+            border-color: mix($moola, white);
+            background: mix($moola, white);
+            color: mix($moola, $slate);
+        }
+    }
+    &[class*="btn-ghost-azure"], &[class*="btn-ghost-tech"] {
+        color: $azure;
+        border-color: $azure;
+        &:hover, &:focus {
+            border-color: $azure;
+            background: $azure;
+            color: white;
+        }
+        &:active {
+            border-color: mix($azure, white);
+            background: mix($azure, white);
+            color: mix($azure, $slate);
+        }
+    }
+    &[class*="btn-ghost-cobalt"], &[class*="btn-ghost-cobalt"] {
+        color: $cobalt;
+        border-color: $cobalt;
+        &:hover, &:focus {
+            border-color: $cobalt;
+            background: $cobalt;
+            color: white;
+        }
+        &:active {
+            border-color: mix($cobalt, white);
+            background: mix($cobalt, white);
+            color: mix($cobalt, $slate);
+        }
+    }
+    &[class*="btn-ghost-eggplant"], &[class*="btn-ghost-athletic"] {
+        color: $eggplant;
+        border-color: $eggplant;
+        &:hover, &:focus {
+            border-color: $eggplant;
+            background: $eggplant;
+            color: white;
+        }
+        &:active {
+            border-color: mix($eggplant, white);
+            background: mix($eggplant, white);
+            color: mix($eggplant, $slate);
+        }
+    }
+    &[class*="btn-ghost-cerise"], &[class*="btn-ghost-academic"] {
+        color: $cerise;
+        border-color: $cerise;
+        &:hover, &:focus {
+            border-color: $cerise;
+            background: $cerise;
+            color: white;
+        }
+        &:active {
+            border-color: mix($cerise, white);
+            background: mix($cerise, white);
+            color: mix($cerise, $slate);
+        }
+    }
+    &[class*="btn-ghost-fb"] {
+        color: $facebook;
+        border-color: $facebook;
+        &:hover, &:focus {
+            border-color: $facebook;
+            background: $facebook;
+            color: white;
+        }
+        &:active {
+            border-color: mix($facebook, white);
+            background: mix($facebook, white);
+            color: mix($facebook, $slate);
+        }
+    }
+}
+
+body {
+    margin: 0;
+}
+
+// pen
+main.pen-desc {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background: $slate;
+    h1 {
+        margin: 0;
+        color: white;
+        font-family: $font;
+        font-weight: 600;
+        font-size: 10vw;
+        line-height: 1;
+    }
+}
+
+$numberOfRings: 30; // sync with HTML
+$numberOfStripes: 24; // sync with HTML
+$animationDuration: 8s;
+
+// .splash-adlib-container, .loader-portal-container {
+// 	display: none!important;
+// }
+
+* {
+	backface-visibility: visible;
+}
+
+body {
+	background: $slate!important;
+}
+
+.portal-transition {
+	opacity: 0;
+	-webkit-clip-path: circle(95px at 50% 50%);
+	clip-path: circle(95px at 50% 50%);
+	transform: translate3d(0, 17%, 25px) rotateX(75deg);
+	animation: l-warp-flip 900ms ease-out 5500ms forwards, warp-expand 500ms ease-out 7000ms forwards;
+}
+
+.portal-transition {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	background: $charcoal;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+
+.warp {
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	top: 50%;
+	left: 50%;
+	margin-left: -100px;
+	margin-top: -100px;
+	transform-origin: center center;
+	transform: scale(1.5);
+	.ring {
+		position: absolute;
+		width: 200px;
+		height: 200px;
+		.stripe {
+			@include flex;
+			@include flex-center;
+			border-radius: 1000px;
+			position: absolute;
+			height: 2px;
+			width: 20px;
+			left: 90px;
+			top: 99px;
+			background: #fff;
+		}
+	}
+	@for $i from 1 through $numberOfRings {
+		$nullbase1: $i - 1;
+		$timeOffset: $nullbase1 * ($animationDuration / $numberOfRings) * -1;
+		.ring-#{$i} {
+			animation: ring $animationDuration cubic-bezier(.98,.02,.97,.12) $timeOffset infinite;
+			@for $j from 1 through $numberOfStripes {
+				$nullBase2: $j - 1;
+				$degree: ((360 / $numberOfStripes) * $nullBase2) - (random() * 10);
+				$offset: 100 - (random() * 40);
+				.stripe-#{$j} {
+					transform: rotate(($degree)+deg) translate3d(($offset)+px, 0, 0) scaleX(($offset / 100));
+				}
+			}
+		}
+	}
+}
+
+.splash-adlib-container {
+	-webkit-clip-path: circle(0px at 50% 50%);
+	clip-path: circle(0px at 50% 50%);
+	background: $slate;
+	overflow: hidden;
+	animation: tunnel-expand 2000ms cubic-bezier(1,0,1,0) 7000ms forwards;
+	// animation: tunnel-expand 2000ms cubic-bezier(1,0,1,0) -100ms forwards;
+	> div {
+		transform-origin: center center;
+		transform: scale(0.2);
+		animation: l-adlib-expand 2000ms cubic-bezier(1,0,1,0) 7100ms forwards;
+		// animation: l-adlib-expand 2000ms cubic-bezier(1,0,1,0) 0ms forwards;
+	}
+}
+
+.splash-guru-head {
+	transform: translateY(120px);
+	animation: splash-guru-squash-a 2450ms ease 9000ms forwards;
+	transform-origin: center center;
+	> div {
+		animation: splash-guru-squash-b 2450ms ease 9000ms forwards;
+		transform-origin: center center;
+	}
+	svg {
+		display: block;
+		width: 150px;
+		height: 150px;
+		.normal-mouth {
+			opacity: 0;
+			animation: l-fadeIn 250ms ease-out 10450ms forwards; //2800
+		}
+		.wince-mouth {
+			animation: normal-mouth 150ms ease-in 10400ms forwards; //2750
+			transform-origin: right center;
+		}
+		.surprise-mouth {
+			opacity: 0;
+			// animation: normal-mouth 250ms ease-in 8750ms forwards;
+			// transform-origin: center center;
+		}
+		.normal-eyebrows {
+			opacity: 0;
+			animation: l-fadeIn 250ms ease-out 10450ms forwards; //2800
+		}
+		.wince-eyebrows {
+			opacity: 0;
+			animation: l-fadeIn 250ms ease-out 9050ms forwards, normal-eyebrows 250ms linear 10400ms forwards; //2750
+			transform-origin: center center;
+		}
+		.surprise-eyebrows {
+			// opacity: 0;
+			animation: wince-eyebrows 250ms ease-in 9000ms forwards;
+		}
+		.normal-eyes {
+			opacity: 0;
+			animation: l-fadeIn 150ms ease-out 10450ms forwards; //2500
+		}
+		.wince-eyes {
+			opacity: 0;
+			animation: l-fadeIn 150ms ease-out 9100ms forwards, wince-eyes 150ms ease-in 10400ms forwards; //2450
+			transform-origin: center bottom;
+		}
+		.surprise-eyes {
+			opacity: 0;
+		}
+	}
+}
+
+.adlib-header {
+	opacity: 0;
+	transform-origin: center center;
+	animation: adlib-header-main-rotateIn 2500ms cubic-bezier(.8,.1,1,.05) 11500ms both;
+}
+
+.splash-adlib ul li {
+	opacity: 0;
+	transform-origin: center center;
+	&:nth-child(1) {
+		animation: portal-tag-1 2000ms ease-in 13000ms forwards;
+	}
+	&:nth-child(2) {
+		animation: portal-tag-2 2000ms ease-in 13100ms forwards;
+	}
+	&:nth-child(3) {
+		animation: portal-tag-3 2000ms ease-in 13200ms forwards;
+	}
+	&:nth-child(4) {
+		animation: portal-tag-4 2000ms ease-in 13300ms forwards;
+	}
+	&:nth-child(5) {
+		animation: portal-tag-5 2000ms ease-in 13400ms forwards;
+	}
+	&:nth-child(6) {
+		animation: portal-tag-6 2000ms ease-in 13500ms forwards;
+	}
+	&:nth-child(7) {
+		animation: portal-tag-7 2000ms ease-in 13600ms forwards;
+	}
+	&:nth-child(8) {
+		animation: portal-tag-8 2000ms ease-in 13700ms forwards;
+	}
+} 
+
+/* http://goo.gl/P8DMSx */
+@keyframes adlib-header-main-rotateIn { 
+	0% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 100, 0, 1);opacity:0; }
+	2.87% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 100, 0, 1);}
+	5.74% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 100, 0, 1); }
+	6.57% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 100, 0, 1);  }
+	6.67% { transform: matrix3d(1.414, 1.414, 0, 0, -1.414, 1.414, 0, 0, 0, 0, 1, 0, -141.421, 141.421, 0, 1); }
+	8.61% { transform: matrix3d(1.438, 0.794, 0, 0, -0.794, 1.438, 0, 0, 0, 0, 1, 0, -79.441, 143.782, 0, 1); }
+	9.54% { transform: matrix3d(1.379, 0.553, 0, 0, -0.553, 1.379, 0, 0, 0, 0, 1, 0, -55.314, 137.892, 0, 1); }
+	10% { opacity:1;}
+	11.48% { transform: matrix3d(1.2, 0.207, 0, 0, -0.207, 1.2, 0, 0, 0, 0, 1, 0, -20.661, 119.951, 0, 1); }
+	12.41% { transform: matrix3d(1.116, 0.107, 0, 0, -0.107, 1.116, 0, 0, 0, 0, 1, 0, -10.677, 111.632, 0, 1);}
+	15.28% { transform: matrix3d(0.947, -0.039, 0, 0, 0.039, 0.947, 0, 0, 0, 0, 1, 0, 3.89, 94.692, 0, 1); }
+	18.14% { transform: matrix3d(0.904, -0.066, 0, 0, 0.066, 0.904, 0, 0, 0, 0, 1, 0, 6.64, 90.423, 0, 1); }
+	18.89% { transform: matrix3d(0.906, -0.065, 0, 0, 0.065, 0.906, 0, 0, 0, 0, 1, 0, 6.518, 90.623, 0, 1); }
+	25.55% { transform: matrix3d(0.979, -0.016, 0, 0, 0.016, 0.979, 0, 0, 0, 0, 1, 0, 1.586, 97.925, 0, 1); }
+	26.29% { transform: matrix3d(0.985, -0.011, 0, 0, 0.011, 0.985, 0, 0, 0, 0, 1, 0, 1.122, 98.544, 0, 1); }
+	32.96% { transform: matrix3d(1.006, 0.005, 0, 0, -0.005, 1.006, 0, 0, 0, 0, 1, 0, -0.492, 100.622, 0, 1); }
+	33.23% { transform: matrix3d(1.006, 0.005, 0, 0, -0.005, 1.006, 0, 0, 0, 0, 1, 0, -0.491, 100.62, 0, 1); }
+	33.33% { transform: matrix3d(1.006, 0.005, 0, 0, -0.005, 1.006, 0, 0, 0, 0, 1, 0, -0.49, 100.618, 0, 1); }
+	36.2% { transform: matrix3d(1.005, 0.004, 0, 0, -0.004, 1.005, 0, 0, 0, 0, 1, 0, -0.174, 48.793, 0, 1); }
+	39.07% { transform: matrix3d(1.002, 0.002, 0, 0, -0.002, 1.002, 0, 0, 0, 0, 1, 0, -0.021, 12.168, 0, 1); }
+	41.11% { transform: matrix3d(1.001, 0.001, 0, 0, -0.001, 1.001, 0, 0, 0, 0, 1, 0, 0.001, -1.881, 0, 1); }
+	41.94% { transform: matrix3d(1.001, 0, 0, 0, 0, 1.001, 0, 0, 0, 0, 1, 0, 0.002, -5.231, 0, 1); }
+	44.81% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -0.002, -9.331, 0, 1); }
+	47.77% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -0.002, -7.122, 0, 1); }
+	52.22% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -2.062, 0, 1); }
+	55.99% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.146, 0, 1); }
+	59.63% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.623, 0, 1); }
+	62.66% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.47, 0, 1); }
+	66.67% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.16, 0, 1); }
+	73.33% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.039, 0, 1); }
+	74.44% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.042, 0, 1); }
+	89.32% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.003, 0, 1); }
+	100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity:1;} 
+}
+
+/* http://goo.gl/VHudIK */
+@keyframes portal-tag-8 { 
+  0% { transform: matrix3d(0, -5, 0, 0, 5, 0, 0, 0, 0, 0, 1, 0, 250, 0, 0, 1); opacity: 1; }
+  4.3% { transform: matrix3d(2.127, -2.034, 0, 0, 2.034, 2.127, 0, 0, 0, 0, 1, 0, 49.394, 51.659, 0, 1); }
+  8.61% { transform: matrix3d(1.459, -0.282, 0, 0, 0.282, 1.459, 0, 0, 0, 0, 1, 0, 1.71, 8.855, 0, 1); }
+  12.91% { transform: matrix3d(0.788, 0.065, 0, 0, -0.065, 0.788, 0, 0, 0, 0, 1, 0, 0.17, -2.06, 0, 1); }
+  17.22% { transform: matrix3d(0.62, 0.092, 0, 0, -0.092, 0.62, 0, 0, 0, 0, 1, 0, 0.427, -2.893, 0, 1); }
+  28.33% { transform: matrix3d(0.917, 0.03, 0, 0, -0.03, 0.917, 0, 0, 0, 0, 1, 0, 0.031, -0.946, 0, 1); }
+  39.44% { transform: matrix3d(1.025, -0.01, 0, 0, 0.01, 1.025, 0, 0, 0, 0, 1, 0, 0.003, 0.319, 0, 1); }
+  61.66% { transform: matrix3d(0.998, 0.001, 0, 0, -0.001, 0.998, 0, 0, 0, 0, 1, 0, 0, -0.021, 0, 1); }
+  83.98% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.001, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; } 
+}
+
+/* http://goo.gl/j0yctq */
+@keyframes portal-tag-7 { 
+  0% { transform: matrix3d(0, 5, 0, 0, -5, 0, 0, 0, 0, 0, 1, 0, 250, 0, 0, 1); opacity: 1;}
+  4.3% { transform: matrix3d(2.127, 2.034, 0, 0, -2.034, 2.127, 0, 0, 0, 0, 1, 0, 49.394, -51.659, 0, 1); }
+  8.61% { transform: matrix3d(1.459, 0.282, 0, 0, -0.282, 1.459, 0, 0, 0, 0, 1, 0, 1.71, -8.855, 0, 1); }
+  12.91% { transform: matrix3d(0.788, -0.065, 0, 0, 0.065, 0.788, 0, 0, 0, 0, 1, 0, 0.17, 2.06, 0, 1); }
+  17.22% { transform: matrix3d(0.62, -0.092, 0, 0, 0.092, 0.62, 0, 0, 0, 0, 1, 0, 0.427, 2.893, 0, 1); }
+  28.33% { transform: matrix3d(0.917, -0.03, 0, 0, 0.03, 0.917, 0, 0, 0, 0, 1, 0, 0.031, 0.946, 0, 1); }
+  39.44% { transform: matrix3d(1.025, 0.01, 0, 0, -0.01, 1.025, 0, 0, 0, 0, 1, 0, 0.003, -0.319, 0, 1); }
+  61.66% { transform: matrix3d(0.998, -0.001, 0, 0, 0.001, 0.998, 0, 0, 0, 0, 1, 0, 0, 0.021, 0, 1); }
+  83.98% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.001, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; } 
+}
+
+/* http://goo.gl/lCiGA8 */
+@keyframes portal-tag-6 { 
+  0% { transform: matrix3d(4.698, -1.71, 0, 0, 1.71, 4.698, 0, 0, 0, 0, 1, 0, 854.188, -576.943, 0, 1); opacity: 1; }
+  4.3% { transform: matrix3d(2.901, -0.497, 0, 0, 0.497, 2.901, 0, 0, 0, 0, 1, 0, 269.733, -118.69, 0, 1); }
+  8.61% { transform: matrix3d(1.484, -0.063, 0, 0, 0.063, 1.484, 0, 0, 0, 0, 1, 0, 35.661, -10.539, 0, 1); }
+  12.91% { transform: matrix3d(0.791, 0.014, 0, 0, -0.014, 0.791, 0, 0, 0, 0, 1, 0, -8.305, 1.916, 0, 1); }
+  17.22% { transform: matrix3d(0.626, 0.02, 0, 0, -0.02, 0.626, 0, 0, 0, 0, 1, 0, -11.787, 2.542, 0, 1); }
+  28.33% { transform: matrix3d(0.917, 0.007, 0, 0, -0.007, 0.917, 0, 0, 0, 0, 1, 0, -3.792, 0.919, 0, 1); }
+  39.44% { transform: matrix3d(1.025, -0.002, 0, 0, 0.002, 1.025, 0, 0, 0, 0, 1, 0, 1.277, -0.322, 0, 1); }
+  61.66% { transform: matrix3d(0.998, 0, 0, 0, 0, 0.998, 0, 0, 0, 0, 1, 0, -0.083, 0.021, 0, 1); }
+  83.98% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0.006, -0.001, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; } 
+}
+
+/* http://goo.gl/7ihhdf */
+@keyframes portal-tag-5 { 
+  0% { transform: matrix3d(3.536, -3.536, 0, 0, 3.536, 3.536, 0, 0, 0, 0, 1, 0, -353.553, 353.553, 0, 1); opacity: 1; }
+  4.3% { transform: matrix3d(2.731, -1.096, 0, 0, 1.096, 2.731, 0, 0, 0, 0, 1, 0, -132.67, 53.22, 0, 1); }
+  8.61% { transform: matrix3d(1.479, -0.141, 0, 0, 0.141, 1.479, 0, 0, 0, 0, 1, 0, -17.956, 1.717, 0, 1); }
+  12.91% { transform: matrix3d(0.79, 0.032, 0, 0, -0.032, 0.79, 0, 0, 0, 0, 1, 0, 4.131, 0.17, 0, 1); }
+  17.22% { transform: matrix3d(0.625, 0.046, 0, 0, -0.046, 0.625, 0, 0, 0, 0, 1, 0, 5.833, 0.428, 0, 1); }
+  28.33% { transform: matrix3d(0.917, 0.015, 0, 0, -0.015, 0.917, 0, 0, 0, 0, 1, 0, 1.892, 0.031, 0, 1); }
+  39.44% { transform: matrix3d(1.025, -0.005, 0, 0, 0.005, 1.025, 0, 0, 0, 0, 1, 0, -0.639, 0.003, 0, 1); }
+  61.66% { transform: matrix3d(0.998, 0, 0, 0, 0, 0.998, 0, 0, 0, 0, 1, 0, 0.042, 0, 0, 1); }
+  83.98% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -0.003, 0, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; } 
+}
+
+/* http://goo.gl/sr1hZb */
+@keyframes portal-tag-4 { 
+  0% { transform: matrix3d(3.536, 3.536, 0, 0, -3.536, 3.536, 0, 0, 0, 0, 1, 0, 353.553, 1060.66, 0, 1); opacity: 1; }
+  4.3% { transform: matrix3d(2.731, 1.096, 0, 0, -1.096, 2.731, 0, 0, 0, 0, 1, 0, 212.12, 239.109, 0, 1); }
+  8.61% { transform: matrix3d(1.479, 0.141, 0, 0, -0.141, 1.479, 0, 0, 0, 0, 1, 0, 34.195, 21.391, 0, 1); }
+  12.91% { transform: matrix3d(0.79, -0.032, 0, 0, 0.032, 0.79, 0, 0, 0, 0, 1, 0, -8.432, -3.792, 0, 1); }
+  17.22% { transform: matrix3d(0.625, -0.046, 0, 0, 0.046, 0.625, 0, 0, 0, 0, 1, 0, -12.095, -4.976, 0, 1); }
+  28.33% { transform: matrix3d(0.917, -0.015, 0, 0, 0.015, 0.917, 0, 0, 0, 0, 1, 0, -3.815, -1.831, 0, 1); }
+  39.44% { transform: matrix3d(1.025, 0.005, 0, 0, -0.005, 1.025, 0, 0, 0, 0, 1, 0, 1.274, 0.645, 0, 1); }
+  61.66% { transform: matrix3d(0.998, 0, 0, 0, 0, 0.998, 0, 0, 0, 0, 1, 0, -0.083, -0.042, 0, 1); }
+  83.98% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0.006, 0.003, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; } 
+}
+
+/* http://goo.gl/aaXLzK */
+@keyframes portal-tag-3 { 
+  0% { transform: matrix3d(4.33, 2.5, 0, 0, -2.5, 4.33, 0, 0, 0, 0, 1, 0, 183.013, 683.013, 0, 1); opacity: 1; }
+  4.3% { transform: matrix3d(2.848, 0.74, 0, 0, -0.74, 2.848, 0, 0, 0, 0, 1, 0, 102.384, 174.313, 0, 1); }
+  8.61% { transform: matrix3d(1.483, 0.094, 0, 0, -0.094, 1.483, 0, 0, 0, 0, 1, 0, 16.856, 19.147, 0, 1); }
+  12.91% { transform: matrix3d(0.791, -0.022, 0, 0, 0.022, 0.791, 0, 0, 0, 0, 1, 0, -4.246, -4.02, 0, 1); }
+  17.22% { transform: matrix3d(0.626, -0.031, 0, 0, 0.031, 0.626, 0, 0, 0, 0, 1, 0, -6.128, -5.556, 0, 1); }
+  28.33% { transform: matrix3d(0.917, -0.01, 0, 0, 0.01, 0.917, 0, 0, 0, 0, 1, 0, -1.913, -1.872, 0, 1); }
+  39.44% { transform: matrix3d(1.025, 0.003, 0, 0, -0.003, 1.025, 0, 0, 0, 0, 1, 0, 0.637, 0.641, 0, 1); }
+  61.66% { transform: matrix3d(0.998, 0, 0, 0, 0, 0.998, 0, 0, 0, 0, 1, 0, -0.042, -0.042, 0, 1); }
+  83.98% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0.003, 0.003, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; } 
+}
+
+/* http://goo.gl/G3Bu2h */
+@keyframes portal-tag-2 { 
+  0% { transform: matrix3d(0.868, 4.924, 0, 0, -4.924, 0.868, 0, 0, 0, 0, 1, 0, -86.824, -492.404, 0, 1); opacity: 1; }
+  4.3% { transform: matrix3d(2.292, 1.846, 0, 0, -1.846, 2.292, 0, 0, 0, 0, 1, 0, -111.312, -89.684, 0, 1); }
+  8.61% { transform: matrix3d(1.464, 0.251, 0, 0, -0.251, 1.464, 0, 0, 0, 0, 1, 0, -17.779, -3.043, 0, 1); }
+  12.91% { transform: matrix3d(0.789, -0.058, 0, 0, 0.058, 0.789, 0, 0, 0, 0, 1, 0, 4.124, -0.302, 0, 1); }
+  17.22% { transform: matrix3d(0.621, -0.081, 0, 0, 0.081, 0.621, 0, 0, 0, 0, 1, 0, 5.799, -0.76, 0, 1); }
+  28.33% { transform: matrix3d(0.917, -0.026, 0, 0, 0.026, 0.917, 0, 0, 0, 0, 1, 0, 1.892, -0.054, 0, 1); }
+  39.44% { transform: matrix3d(1.025, 0.009, 0, 0, -0.009, 1.025, 0, 0, 0, 0, 1, 0, -0.639, -0.006, 0, 1); }
+  61.66% { transform: matrix3d(0.998, -0.001, 0, 0, 0.001, 0.998, 0, 0, 0, 0, 1, 0, 0.042, 0, 0, 1); }
+  83.98% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -0.003, 0, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; } 
+}
+
+/* http://goo.gl/3gBkAE */
+@keyframes portal-tag-1 { 
+  0% { transform: matrix3d(3.214, 3.83, 0, 0, -3.83, 3.214, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; }
+  4.3% { transform: matrix3d(2.682, 1.21, 0, 0, -1.21, 2.682, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  8.61% { transform: matrix3d(1.477, 0.157, 0, 0, -0.157, 1.477, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  12.91% { transform: matrix3d(0.79, -0.036, 0, 0, 0.036, 0.79, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  17.22% { transform: matrix3d(0.625, -0.051, 0, 0, 0.051, 0.625, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  28.33% { transform: matrix3d(0.917, -0.017, 0, 0, 0.017, 0.917, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  39.44% { transform: matrix3d(1.025, 0.006, 0, 0, -0.006, 1.025, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  61.66% { transform: matrix3d(0.998, 0, 0, 0, 0, 0.998, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  83.98% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; } 
+}
+
+.splash-adlib {
+	width: 100%;
+	-webkit-perspective: 1000;
+	perspective: 1000;
+	h1 {
+		@include flex;
+		@include flex-wrap;
+		@include flex-center;
+		font-size: 28px;
+		font-weight: 600;
+		a {
+			margin: 0 15px;
+		}
+	}
+	ul {
+		@include flex;
+		@include flex-wrap;
+		@include flex-center;
+		margin: 15px auto;
+		padding: 7.5px;
+		width: 100%;
+		li {
+			width: 143px;
+			padding: 7.5px;
+			a[class*="translate-blank"] {
+				animation: none!important;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.splash-adlib {
+		h1 {
+			line-height: 1.5;
+		}
+		ul {
+			flex-direction: column;
+			height: 250px;
+		}
+	}
+}
+
+@media screen and (max-width: 414px) {
+	.splash-adlib {
+		margin-top: -10px;
+		ul {
+			margin: -10px 0 5px;
+		}
+	}
+}
+
+@media screen and (max-width: 360px) {
+	.splash-adlib {
+		h1 {
+			font-size: 24px;
+		}
+	}
+}
+
+@media screen and (max-width: 320px) {
+	.splash-adlib h1 {
+		line-height: 2!important;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.splash-adlib {
+		h1 {
+			font-size: 40px;
+		}
+		.splash-mobile-cta {
+			display: none;
+		}
+		ul {
+			max-width: calc(172px * 4 + 30px);
+			padding: 15px;
+			margin: 0 auto 15px;
+			li {
+				width: 25%;
+				max-width: 172px;
+				padding: 15px;
+				&:nth-child(7), &:nth-child(8) {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
+.loader-portal-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -2;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	perspective: 1000;
+	transform-style: preserve-3d;
+}
+
+.loader-portal {
+	// border: 1px dashed rgba(white, .1);
+	// transform: rotateX(80deg) rotateY(-10deg);
+	position: relative;
+	width: 100%;
+	height: 100%;
+	max-height: 350px;
+	max-width: 250px;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	transform-style: preserve-3d;
+	transform-origin: center center;
+	overflow: hidden;
+	opacity: 0;
+	animation: l-fadeIn 50ms linear 50ms both;
+	* {
+		transform-style: preserve-3d;
+		transform-origin: center center;
+	}
+	.portal {
+		position: absolute;
+		bottom: 0;
+		left: 25px;
+		width: 200px;
+		height: 200px;
+		transform: translate3d(0,37%,25px) rotateX(75deg);
+		animation: l-portal-flip 900ms ease-out 5500ms forwards;
+		> div:not(.mask) {
+			width: 100%;
+			height: 100%;
+			transform: matrix3d(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+			animation: l-portal 1000ms linear 500ms forwards;
+			svg {
+				circle {
+					cursor: pointer;
+					stroke-dasharray: 1207;
+					stroke-dashoffset: 1207;
+					animation: l-progress 3000ms linear 2000ms both;
+				}
+			}
+		}
+	}
+	.logo {
+		cursor: pointer;
+		position: absolute;
+		top: 40px;
+		left: 60px;
+		width: 130px;
+		height: 37px;
+		transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 350, 0, 1);
+		animation: l-move-up 1000ms linear 1000ms both, l-move-down 1000ms linear 4500ms forwards;
+	}
+	.guru {
+		position: absolute;
+		top: 50px;
+		left: 60px;
+		width: 130px;
+		transform: translate3d(0,50px,0);
+		> div {
+			width: 100%;
+			height: 100%;
+			transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 350, 0, 1);
+			animation: l-move-up 1000ms linear 1500ms both, l-head-hover 1000ms linear 2500ms 5 forwards, l-move-down 1000ms linear 4500ms forwards;
+		}
+	}
+}
+
+@keyframes l-adlib-expand {
+	0% { transform: scale(0.2); }
+	100% { transform: scale(1); }
+}
+
+@keyframes ring {
+	0% {
+		transform: scale(0);
+		opacity: 0.1;
+	}
+	90% {
+		opacity: 1;
+	}
+	100% {
+		transform: scale(4);
+		opacity: 1;
+	}
+}
+
+@keyframes warp-expand {
+	0% {
+		-webkit-clip-path: circle(95px at 50% 50%);
+		clip-path: circle(95px at 50% 50%);
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+	99.99% {
+		-webkit-clip-path: circle(1000px at 50% 50%);
+		clip-path: circle(1000px at 50% 50%);
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-clip-path: none;
+		clip-path: none;
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+}
+
+@keyframes tunnel-expand {
+	0% {
+		-webkit-clip-path: circle(0px at 50% 50%);
+		clip-path: circle(0px at 50% 50%);
+	}
+	99.99% {
+		-webkit-clip-path: circle(1000px at 50% 50%);
+		clip-path: circle(1000px at 50% 50%);
+	}
+	100% {
+		-webkit-clip-path: none;
+		clip-path: none;
+	}
+}
+
+@keyframes l-warp-flip {
+	0% { transform: translate3d(0, 17%, 25px) rotateX(75deg); opacity: 0; }
+	100% { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+
+@keyframes l-portal-flip {
+	0% { transform: translate3d(0, 37%, 25px) rotateX(75deg) }
+	100% { transform: translate3d(0, -75px, 0) }
+}
+
+@keyframes l-fadeIn {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes l-progress { 
+	0% { stroke: $shamrock; stroke-dashoffset: 1207; }
+	10% { stroke: $robin; }
+	20% { stroke: $azure; }
+	30% { stroke: $lake; }
+	40% { stroke: $cobalt; }
+	50% { stroke: $eggplant; }
+	60% { stroke: $cerise; }
+	70% { stroke: $crimson; }
+	80% { stroke: $auburn; }
+	90% { stroke: $orange; }
+	100% { stroke: $gold; stroke-dashoffset: 0; }
+}
+
+@keyframes l-head-hover {
+	0% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	52.15% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 3.516, 0, 1); }
+	63.26% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -2.895, 0, 1); }
+	85.49% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 3.516, 0, 1); }
+	100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+}
+
+/* http://goo.gl/qhW7IK */
+@keyframes l-move-up { 
+	0% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 350, 0, 1); }
+	4.5% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 180.157, 0, 1); }
+	9.01% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 42.008, 0, 1); }
+	13.51% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -30.597, 0, 1); }
+	17.92% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -48.726, 0, 1); }
+	29.03% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -11.3, 0, 1); }
+	34.63% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 2.076, 0, 1); }
+	40.14% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5.399, 0, 1); }
+	62.36% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.598, 0, 1); }
+	84.68% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.066, 0, 1); }
+	100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+}
+
+@keyframes l-move-down { 
+	0% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	49.9% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	50% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	52.35% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 179.877, 0, 1); }
+	54.7% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 353.384, 0, 1); }
+	57.06% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 456.363, 0, 1); }
+	59.36% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 484.844, 0, 1); }
+	62.16% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 460.219, 0, 1); }
+	64.96% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 419.036, 0, 1); }
+	67.77% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 391.771, 0, 1); }
+	70.52% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 384.329, 0, 1); }
+	76.08% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 396.484, 0, 1); }
+	81.63% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 402.895, 0, 1); }
+	92.74% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 399.465, 0, 1); }
+	100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 400, 0, 1); } 
+}
+
+/* http://goo.gl/D2fiVA */
+@keyframes l-portal { 
+	0% { transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	4.3% { transform: matrix3d(0.471, 0, 0, 0, 0, 0.417, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	6.41% { transform: matrix3d(0.756, 0, 0, 0, 0, 0.675, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	8.61% { transform: matrix3d(1.001, 0, 0, 0, 0, 0.907, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	9.61% { transform: matrix3d(1.082, 0, 0, 0, 0, 0.99, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	12.81% { transform: matrix3d(1.211, 0, 0, 0, 0, 1.145, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	12.91% { transform: matrix3d(1.212, 0, 0, 0, 0, 1.148, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	17.22% { transform: matrix3d(1.166, 0, 0, 0, 0, 1.156, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	20.52% { transform: matrix3d(1.082, 0, 0, 0, 0, 1.102, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	28.13% { transform: matrix3d(0.983, 0, 0, 0, 0, 1.008, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	28.33% { transform: matrix3d(0.982, 0, 0, 0, 0, 1.006, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	39.44% { transform: matrix3d(0.999, 0, 0, 0, 0, 0.995, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	43.54% { transform: matrix3d(1.002, 0, 0, 0, 0, 0.997, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	58.96% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	61.66% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	74.37% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	83.98% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	89.79% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+}
+
+@keyframes l-portal-shrink { 
+	0% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; }
+	49.9% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	50% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	52.35% { transform: matrix3d(0.55, 0, 0, 0, 0, 0.55, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	54.7% { transform: matrix3d(0.117, 0, 0, 0, 0, 0.117, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	57.06% { transform: matrix3d(-0.141, 0, 0, 0, 0, -0.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	59.36% { transform: matrix3d(-0.212, 0, 0, 0, 0, -0.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	62.16% { transform: matrix3d(-0.151, 0, 0, 0, 0, -0.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	64.96% { transform: matrix3d(-0.048, 0, 0, 0, 0, -0.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	67.77% { transform: matrix3d(0.021, 0, 0, 0, 0, 0.021, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	70.52% { transform: matrix3d(0.039, 0, 0, 0, 0, 0.039, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	76.08% { transform: matrix3d(0.009, 0, 0, 0, 0, 0.009, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	81.63% { transform: matrix3d(-0.007, 0, 0, 0, 0, -0.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	92.74% { transform: matrix3d(0.001, 0, 0, 0, 0, 0.001, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	99% { opacity: 1; }
+	100% { opacity: 0; transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+}
+
+/* http://goo.gl/oZX1IV */
+
+/* http://goo.gl/FCaVbX */
+@keyframes splash-guru-squash-a {
+  0% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 120, 0, 1); }
+  1.8% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 120, 0, 1); }
+  3.58% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 120, 0, 1); }
+  5.38% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 120, 0, 1); }
+  7.15% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 120, 0, 1); }
+  10.73% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 120, 0, 1); }
+  14.3% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 120, 0, 1); }
+  21.45% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 120, 0, 1); }
+  28.47% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 120, 0, 1); }
+  28.57% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 120, 0, 1); }
+  31.15% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 131.514, 0, 1); }
+  33.68% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 138.632, 0, 1); }
+  36.25% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 143.134, 0, 1); }
+  38.79% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 145.863, 0, 1); }
+  43.89% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 148.562, 0, 1); }
+  49% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 149.528, 0, 1); }
+  59.08% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 149.961, 0, 1); }
+  59.18% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 149.962, 0, 1); }
+  59.21% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 149.1, 0, 1); }
+  61.47% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 68.76, 0, 1); }
+  62.62% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 29.505, 0, 1); }
+  63.72% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.009, 0, 1); }
+  65.27% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 24.726, 0, 1); }
+  66.82% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 31.814, 0, 1); }
+  69.39% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 20.728, 0, 1); }
+  69.81% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 17.823, 0, 1); }
+  72.79% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  75.94% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5.877, 0, 1); }
+  81.9% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.031, 0, 1); }
+  85.01% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1.086, 0, 1); }
+  90.97% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.006, 0, 1); }
+  94.08% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0.201, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+}
+
+/* http://goo.gl/ILqKg2 */
+@keyframes splash-guru-squash-b {
+  0% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  1.34% { transform: matrix3d(1.45, 0, 0, 0, 0, 1.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  2.69% { transform: matrix3d(1.883, 0, 0, 0, 0, 1.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  4.03% { transform: matrix3d(2.141, 0, 0, 0, 0, 2.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  5.35% { transform: matrix3d(2.212, 0, 0, 0, 0, 2.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  6.95% { transform: matrix3d(2.151, 0, 0, 0, 0, 2.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  8.55% { transform: matrix3d(2.048, 0, 0, 0, 0, 2.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  10.15% { transform: matrix3d(1.979, 0, 0, 0, 0, 1.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  11.73% { transform: matrix3d(1.961, 0, 0, 0, 0, 1.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  14.9% { transform: matrix3d(1.991, 0, 0, 0, 0, 1.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  18.08% { transform: matrix3d(2.007, 0, 0, 0, 0, 2.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  24.42% { transform: matrix3d(1.999, 0, 0, 0, 0, 1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  28.57% { transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  59.08% { transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  59.18% { transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  61.76% { transform: matrix3d(1.616, 0, 0, 0, 0, 1.616, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  64.29% { transform: matrix3d(1.379, 0, 0, 0, 0, 1.379, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  66.86% { transform: matrix3d(1.229, 0, 0, 0, 0, 1.229, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  69.4% { transform: matrix3d(1.138, 0, 0, 0, 0, 1.138, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  74.51% { transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  79.61% { transform: matrix3d(1.016, 0, 0, 0, 0, 1.016, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  89.83% { transform: matrix3d(1.001, 0, 0, 0, 0, 1.001, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+}
+
+@keyframes normal-eyebrows {
+	0% {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+	99% {
+		opacity: 1;
+	}
+	100% {
+		transform: translate3d(0, 3px, 0);
+		opacity: 0;
+	}
+}
+
+@keyframes normal-mouth {
+	0% {
+		transform: translate3d(0, 0, 0) scaleY(1);
+		opacity: 1;
+	}
+	99% {
+		opacity: 1;
+	}
+	100% {
+		transform: translate3d(4px, 0, 0) scaleY(0.2);
+		opacity: 0;
+	}
+}
+
+@keyframes wince-eyes {
+	0% {
+		transform: translate3d(0, -3px, 0) scaleY(1);
+		opacity: 1;
+	}
+	99% {
+		opacity: 1;
+	}
+	100% {
+		transform: translate3d(0, -3px, 0) scaleY(0.5);
+		opacity: 0;
+	}
+}
+
+@keyframes wince-eyebrows {
+	0% {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+	99% {
+		opacity: 1;
+	}
+	100% {
+		transform: translate3d(0, -3px, 0);
+		opacity: 0;
+	}
+}
+
+@keyframes move-mouth {
+	0% {
+		transform: scaleX(1);
+		opacity: 1;
+	}
+	99% {
+		opacity: 1;
+	}
+	100% {
+		transform: scaleX(1.5);
+		opacity: 0;
+	}
+}
+
+@mixin prefix($property, $value, $prefixes: ()) {
+    @each $prefix in $prefixes {
+        #{'-' + $prefix + '-' + $property}: $value;
+    }
+    #{$property}: $value;
+}
+@mixin opacity($opacity) {
+    filter: alpha(opacity=$opacity * 100);
+    opacity: $opacity;
+}
+@mixin opacity-important($opacity) {
+    filter: alpha(opacity=$opacity * 100)!important;
+    opacity: $opacity!important;
+}
+@mixin transition($transition) {
+    -webkit-transition: all $transition;
+    -o-transition: all $transition;
+    -ms-transition: all $transition;
+    -moz-transition: all $transition;
+    transition: all $transition;
+}
+@mixin transition-type($type, $transition) {
+    -webkit-transition: $type $transition;
+    -o-transition: $type $transition;
+    -ms-transition: $type $transition;
+    -moz-transition: $type $transition;
+    transition: $type $transition;
+}
+@mixin transition-none {
+    -webkit-transition: none!important;
+    -o-transition: none!important;
+    -ms-transition: none!important;
+    -moz-transition: none!important;
+    transition: none!important;
+}
+@mixin round {
+    border-radius: 1000px;
+}
+@mixin border-radius($radius) {
+    border-radius: $radius+px;
+}
+@mixin center-x {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+@mixin center-y {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+@mixin center-xy {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+@mixin reset-pos {
+    position: static;
+    top: auto;
+    left: auto;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+}
+@mixin pos-xy($xpos, $ypos) {
+    position: absolute;
+    top: percentage($ypos);
+    left: percentage($xpos);
+    -webkit-transform: translate(-(percentage($xpos)),-(percentage($ypos)));
+    -moz-transform: translate(-(percentage($xpos)),-(percentage($ypos)));
+    -ms-transform: translate(-(percentage($xpos)),-(percentage($ypos)));
+    -o-transform: translate(-(percentage($xpos)),-(percentage($ypos)));
+    transform: translate(-(percentage($xpos)),-(percentage($ypos)));
+}
+@mixin tri-down($size, $color, $radius, $padding) {
+    @include border-radius($radius);
+    position: relative;
+    background: $color;
+    padding: $padding;
+    margin-top: ($size * 2)+px;
+    &:before {
+        @include center-x;
+        content: "";
+        display: block;
+        position: absolute;
+        top: -($size * 2)+px;
+        width: 0;
+        height: 0;
+        border: $size+px solid transparent;
+        border-bottom: $size+px solid $color;
+    }
+}
+@mixin tri-up($size, $color, $radius, $padding) {
+    @include border-radius($radius);
+    position: relative;
+    background: $color;
+    padding: $padding;
+    margin-bottom: ($size * 2)+px;
+    &:after {
+        @include center-x;
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -($size * 2)+px;
+        width: 0;
+        height: 0;
+        border: $size+px solid transparent;
+        border-top: $size+px solid $color;
+    }
+}
+@mixin flex {
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+}
+@mixin flex-important {
+    -ms-box-orient: horizontal!important;
+    display: -webkit-box!important;
+    display: -moz-box!important;
+    display: -ms-flexbox!important;
+    display: -moz-flex!important;
+    display: -webkit-flex!important;
+    display: flex!important;
+}
+@mixin flex-column {
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+@mixin flex-wrap {
+    -ms-flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+@mixin flex-center {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-align-content: center;
+    align-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+@mixin flex-center-column {
+    -webkit-flex-direction:column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+@mixin flex-center-vertical {
+    -webkit-align-content: center;
+    align-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+@mixin flex-left-center {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+}
+@mixin flex-right-center {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+@mixin flex-bottom {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+@mixin flex-reset {
+    display: block;
+}
+@mixin flex-stretch {
+    -webkit-align-items: stretch!important;
+    align-items: stretch!important;
+    -webkit-align-content: stretch!important;
+    align-content: stretch!important;
+}
+@mixin flex-stretch-impt {
+    -webkit-align-items:stretch !important;
+    align-items: stretch !important;
+    -webkit-align-content: stretch !important;
+    align-content: stretch !important;
+}
+@mixin listless {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+@mixin translate($xpos, $ypos) {
+    -webkit-transform: translate($xpos,$ypos);
+    -moz-transform: translate($xpos,$ypos);
+    -ms-transform: translate($xpos,$ypos);
+    -o-transform: translate($xpos,$ypos);
+    transform: translate($xpos,$ypos);
+}
+@mixin translate-x($xpos) {
+    -webkit-transform: translateX($xpos);
+    -moz-transform: translateX($xpos);
+    -ms-transform: translateX($xpos);
+    -o-transform: translateX($xpos);
+    transform: translateX($xpos);
+}
+@mixin translate-y($ypos) {
+    -webkit-transform: translateY($ypos);
+    -moz-transform: translateY($ypos);
+    -ms-transform: translateY($ypos);
+    -o-transform: translateY($ypos);
+    transform: translateY($ypos);
+}
+@mixin transform-origin($origin) {
+    -webkit-transform-origin: $origin;
+    -moz-transform-origin: $origin;
+    -ms-transform-origin: $origin;
+    -o-transform-origin: $origin;
+    transform-origin: $origin;
+}
+@mixin blur($blur) {
+    filter: blur($blur+px);
+    -webkit-filter: blur($blur+px);
+    -moz-filter: blur($blur+px);
+    -o-filter: blur($blur+px);
+    -ms-filter: blur($blur+px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='#{$blur}');
+}
+@mixin rotate($angle) {
+    -webkit-transform: rotate($angle+deg);
+    -moz-transform: rotate($angle+deg);
+    -ms-transform: rotate($angle+deg);
+    -o-transform: rotate($angle+deg);
+    transform: rotate($angle+deg);
+}
+@mixin scale($scale) {
+    -webkit-transform: scale($scale);
+    -moz-transform: scale($scale);
+    -ms-transform: scale($scale);
+    -o-transform: scale($scale);
+    transform: scale($scale);
+}
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+@mixin transform-reset {
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin appearance {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+@mixin animation-direction($direction) {
+    -webkit-animation-direction: $direction;
+    -moz-animation-direction: $direction;
+    -o-animation-directionn: $direction;
+    animation-direction: $direction;
+}
+@mixin animation-timing-function($timing) {
+    -webkit-animation-timing-function: $timing;
+    -moz-animation-timing-function: $timing;
+    -o-animation-timing-function: $timing;
+    animation-timing-function: $timing;
+}
+@mixin animation-duration($duration) {
+    -webkit-animation-duration: $duration;
+    -moz-animation-duration: $duration;
+    -o-animation-duration: $duration;
+    animation-duration: $duration;
+}
+@mixin animation-fill-mode($mode) {
+    -webkit-animation-fill-mode: $mode;
+    -moz-animation-fill-mode: $mode;
+    -o-animation-fill-mode: $mode;
+    animation-fill-mode: $mode;
+}
+@mixin animation-delay($delay) {
+    -webkit-animation-delay: $delay;
+    -moz-animation-delay: $delay;
+    -o-animation-delay: $delay;
+    animation-delay: $delay;
+}
+@mixin animation-iteration-count($count) {
+    -webkit-animation-iteration-count: $count;
+    -moz-animation-iteration-count: $count;
+    -o-animation-iteration-count: $count;
+    animation-iteration-count: $count;
+}
+@mixin animation-name($name) {
+    -webkit-animation-name: $name;
+    -moz-animation-name: $name;
+    -o-animation-name: $name;
+    animation-name: $name;
+}
+
+@mixin box-sizing {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@mixin box-sizing-important {
+    -webkit-box-sizing: border-box!important;
+    -moz-box-sizing: border-box!important;
+    box-sizing: border-box!important;
+}
+
+@mixin svg-stroke($stroke, $width) {
+    fill: none;
+    stroke: $stroke;
+    stroke-width: $width+px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+@mixin svg-stroke-width($width) {
+    fill: none;
+    stroke-width: $width+px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+$links: 'a:active, a:focus, a:hover';
+$buttons: 'button:active, button:hover, button:focus, a[class*=btn]:active, a[class*=btn]:focus, a[class*=btn]:hover';
+
+
+$charcoal: #2B3234;
+$slate: #40484B;
+$taupe: #757575;
+$campus: #8A9EA3;
+$smoke: #F1F1F1;
+
+$rocket: #696269;
+$shamrock: #69B3A5;
+$robin: #2BB3B8;
+$lake: #50A5DD;
+
+$moxie: #43cb9d;
+$crimson: #d3242c;
+
+$auburn: #F04F54;
+$orange: #E5753C;
+$gold: #F6C64E;
+$moola: #81B566;
+$azure: #55A4B7;
+$cobalt: #7872e3;
+$eggplant: #9A5BC5;
+$cerise: #e6389b;
+
+$first: #e8c480;
+$second: #c8bbc9;
+$third: #c5857c;
+
+$facebook: #3b5998;
+$facebook-light: #6279B1;
+$instagram: #517fa4;
+$linkedin: #007bb6;
+$twitter: #00aced;
+
+$beige: #FFFDFA;
+
+// $gabrielle: #958B8E;
+$gabrielle: $shamrock;
+
+$padding: 15px;
+
+$icon-bg: no-repeat center center;
+
+$font: "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif!important;
+
+/* ---------- BUTTONS AND INPUT */
+button, input, textarea {
+    @include appearance;
+    font-family: $font;
+}
+
+// buttons
+.bg {
+    svg {
+        * {
+            stroke: white;
+        }
+    }
+    &.bg-charcoal {
+        background: $charcoal;
+        &:hover, &:focus {
+            background: mix($charcoal, white);
+            color: $charcoal;
+        }
+        &:active {
+            background: mix($charcoal, white, 75%);
+            color: white;
+        }
+    }
+    &.bg-slate {
+        background: $slate;
+        &:hover, &:focus {
+            background: mix($slate, white);
+            color: $slate;
+        }
+        &:active {
+            background: mix($slate, white, 75%);
+            color: white;
+        }
+    }
+    &.bg-taupe {
+        background: $taupe;
+        &:hover, &:focus {
+            background: mix($taupe, white);
+            color: $taupe;
+        }
+        &:active {
+            background: mix($taupe, white, 75%);
+            color: white;
+        }
+    }
+    &.bg-campus {
+        background: $campus;
+        &:hover, &:focus {
+            background: mix($campus, white);
+            color: mix($campus, $slate);
+        }
+        &:active {
+            background: mix($campus, $slate);
+            color: white;
+        }
+    }
+    &.bg-rocket {
+        background: $rocket;
+        &:hover, &:focus {
+            background: mix($rocket, white);
+            color: mix($rocket, $slate);
+        }
+        &:active {
+            background: mix($rocket, $slate);
+            color: white;
+        }
+    }
+    &.bg-shamrock {
+        background: $shamrock;
+        &:hover, &:focus {
+            background: mix($shamrock, white);
+            color: mix($shamrock, $slate);
+        }
+        &:active {
+            background: mix($shamrock, $slate);
+            color: white;
+        }
+    }
+    &.bg-robin {
+        background: $robin;
+        &:hover, &:focus {
+            background: mix($robin, white);
+            color: mix($robin, $slate);
+        }
+        &:active {
+            background: mix($robin, $slate);
+            color: white;
+        }
+    }
+    &.bg-lake {
+        background: $lake;
+        &:hover, &:focus {
+            background: mix($lake, white);
+            color: mix($lake, $slate);
+        }
+        &:active {
+            background: mix($lake, $slate);
+            color: white;
+        }
+    }
+    &.bg-moxie {
+        background: $moxie;
+        &:hover, &:focus {
+            background: mix($moxie, white);
+            color: mix($moxie, $slate);
+        }
+        &:active {
+            background: mix($moxie, $slate);
+            color: white;
+        }
+    }
+    &.bg-crimson {
+        background: $crimson;
+        &:hover, &:focus {
+            background: mix($crimson, white);
+            color: mix($crimson, $slate);
+        }
+        &:active {
+            background: mix($crimson, $slate);
+            color: white;
+        }
+    }
+    &.bg-auburn, &.bg-delivery {
+        background: $auburn;
+        &:hover, &:focus {
+            background: mix($auburn, white);
+            color: mix($auburn, $slate);
+        }
+        &:active {
+            background: mix($auburn, $slate);
+            color: white;
+        }
+    }
+    &.bg-orange, &.bg-freelancing {
+        background: $orange;
+        &:hover, &:focus {
+            background: mix($orange, white);
+            color: mix($orange, $slate);
+        }
+        &:active {
+            background: mix($orange, $slate);
+            color: white;
+        }
+    }
+    &.bg-gold, &.bg-baking {
+        background: $gold;
+        &:hover, &:focus {
+            background: mix($gold, white);
+            color: mix($gold, $slate);
+        }
+        &:active {
+            background: mix($gold, $slate);
+            color: white;
+        }
+    }
+    &.bg-moola, &.bg-photography {
+        background: $moola;
+        &:hover, &:focus {
+            background: mix($moola, white);
+            color: mix($moola, $slate);
+        }
+        &:active {
+            background: mix($moola, $slate);
+            color: white;
+        }
+    }
+    &.bg-azure, &.bg-tech {
+        background: $azure;
+        &:hover, &:focus {
+            background: mix($azure, white);
+            color: mix($azure, $slate);
+        }
+        &:active {
+            background: mix($azure, $slate);
+            color: white;
+        }
+    }
+    &.bg-cobalt, &.bg-household {
+        background: $cobalt;
+        &:hover, &:focus {
+            background: mix($cobalt, white);
+            color: mix($cobalt, $slate);
+        }
+        &:active {
+            background: mix($cobalt, $slate);
+            color: white;
+        }
+    }
+    &.bg-eggplant, &.bg-athletic {
+        background: $eggplant;
+        &:hover, &:focus {
+            background: mix($eggplant, white);
+            color: mix($eggplant, $slate);
+        }
+        &:active {
+            background: mix($eggplant, $slate);
+            color: white;
+        }
+    }
+    &.bg-cerise, &.bg-academic {
+        background: $cerise;
+        &:hover, &:focus {
+            background: mix($cerise, white);
+            color: mix($cerise, $slate);
+        }
+        &:active {
+            background: mix($cerise, $slate);
+            color: white;
+        }
+    }
+}
+button {
+    cursor: pointer;
+    width: 100%;
+    height: 64px;
+    border: 0;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: $shamrock;
+    svg {
+        * {
+            stroke: white;
+        }
+    }
+    &.normal {
+        width: auto;
+    }
+    &.width-300 {
+        width: 300px;
+    }
+    &.width-400 {
+        width: 400px;
+    }
+    &.height-54 {
+        height: 54px
+    }
+    &.height-48 {
+        height: 48px
+    }
+    &.height-36 {
+        height: 36px
+    }
+    &:hover, &:focus {
+        background: mix($shamrock, white);
+        color: mix($shamrock, $slate);
+        svg {
+            * {
+                stroke: mix($shamrock, $slate);
+            }
+        }
+    }
+    &:active {
+        background: mix($shamrock, $slate);
+        color: white;
+        svg {
+            * {
+                stroke: white;
+            }
+        }
+    }
+    &.bg-charcoal {
+        background: $charcoal;
+        &:hover, &:focus {
+            background: mix($charcoal, white);
+            color: $charcoal;
+            svg {
+                * {
+                    stroke: $charcoal;
+                }
+            }
+        }
+        &:active {
+            background: mix($charcoal, white, 75%);
+            color: white;
+            svg {
+                * {
+                    stroke: white;
+                }
+            }
+        }
+        &.reverse {
+            background: white;
+            color: $charcoal;
+            svg {
+                * {
+                    stroke: $charcoal;
+                }
+            }
+            &:hover, &:focus {
+                background: mix($charcoal, white);
+                color: $charcoal;
+                svg {
+                    * {
+                        stroke: $charcoal;
+                    }
+                }
+            }
+            &:active {
+                background: mix($charcoal, white, 75%);
+                color: white;
+                svg {
+                    * {
+                        stroke: white;
+                    }
+                }
+            }
+        }
+    }
+    &.bg-slate {
+        background: $slate;
+        &:hover, &:focus {
+            background: mix($slate, white);
+            color: $slate;
+            svg {
+                * {
+                    stroke: $slate;
+                }
+            }
+        }
+        &:active {
+            background: mix($slate, white, 75%);
+            color: white;
+            svg {
+                * {
+                    stroke: white;
+                }
+            }
+        }
+        &.reverse {
+            background: white;
+            color: $slate;
+            svg {
+                * {
+                    stroke: $slate;
+                }
+            }
+            &:hover, &:focus {
+                background: mix($slate, white);
+                color: $slate;
+                svg {
+                    * {
+                        stroke: $slate;
+                    }
+                }
+            }
+            &:active {
+                background: mix($slate, white, 75%);
+                color: white;
+                svg {
+                    * {
+                        stroke: white;
+                    }
+                }
+            }
+        }
+    }
+    &.bg-taupe {
+        background: $taupe;
+        &:hover, &:focus {
+            background: mix($taupe, white);
+            color: $taupe;
+            svg {
+                * {
+                    stroke: $taupe;
+                }
+            }
+        }
+        &:active {
+            background: mix($taupe, white, 75%);
+            color: white;
+            svg {
+                * {
+                    stroke: white;
+                }
+            }
+        }
+        &.reverse {
+            background: white;
+            color: $taupe;
+            &:hover, &:focus {
+                background: mix($taupe, white);
+                color: $taupe;
+                svg {
+                    * {
+                        stroke: $taupe;
+                    }
+                }
+            }
+            &:active {
+                background: mix($taupe, white, 75%);
+                color: white;
+                svg {
+                    * {
+                        stroke: white;
+                    }
+                }
+            }
+        }
+    }
+    &.bg-campus {
+        background: $campus;
+        &:hover, &:focus {
+            background: mix($campus, white);
+            color: mix($campus, $slate);
+        }
+        &:active {
+            background: mix($campus, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $campus;
+            &:hover, &:focus {
+                background: mix($campus, white);
+                color: mix($campus, $slate);
+            }
+            &:active {
+                background: mix($campus, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-rocket {
+        background: $rocket;
+        &:hover, &:focus {
+            background: mix($rocket, white);
+            color: mix($rocket, $slate);
+        }
+        &:active {
+            background: mix($rocket, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $rocket;
+            &:hover, &:focus {
+                background: mix($rocket, white);
+                color: mix($rocket, $slate);
+            }
+            &:active {
+                background: mix($rocket, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-shamrock {
+        background: $shamrock;
+        &:hover, &:focus {
+            background: mix($shamrock, white);
+            color: mix($shamrock, $slate);
+        }
+        &:active {
+            background: mix($shamrock, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $shamrock;
+            &:hover, &:focus {
+                background: mix($shamrock, white);
+                color: mix($shamrock, $slate);
+            }
+            &:active {
+                background: mix($shamrock, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-robin {
+        background: $robin;
+        &:hover, &:focus {
+            background: mix($robin, white);
+            color: mix($robin, $slate);
+        }
+        &:active {
+            background: mix($robin, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $robin;
+            &:hover, &:focus {
+                background: mix($robin, white);
+                color: mix($robin, $slate);
+            }
+            &:active {
+                background: mix($robin, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-lake {
+        background: $lake;
+        &:hover, &:focus {
+            background: mix($lake, white);
+            color: mix($lake, $slate);
+        }
+        &:active {
+            background: mix($lake, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $lake;
+            &:hover, &:focus {
+                background: mix($lake, white);
+                color: mix($lake, $slate);
+            }
+            &:active {
+                background: mix($lake, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-moxie {
+        background: $moxie;
+        &:hover, &:focus {
+            background: mix($moxie, white);
+            color: mix($moxie, $slate);
+        }
+        &:active {
+            background: mix($moxie, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $moxie;
+            &:hover, &:focus {
+                background: mix($moxie, white);
+                color: mix($moxie, $slate);
+            }
+            &:active {
+                background: mix($moxie, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-crimson {
+        background: $crimson;
+        &:hover, &:focus {
+            background: mix($crimson, white);
+            color: mix($crimson, $slate);
+        }
+        &:active {
+            background: mix($crimson, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $crimson;
+            &:hover, &:focus {
+                background: mix($crimson, white);
+                color: mix($crimson, $slate);
+            }
+            &:active {
+                background: mix($crimson, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-auburn, &.bg-delivery {
+        background: $auburn;
+        &:hover, &:focus {
+            background: mix($auburn, white);
+            color: mix($auburn, $slate);
+        }
+        &:active {
+            background: mix($auburn, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $auburn;
+            &:hover, &:focus {
+                background: mix($auburn, white);
+                color: mix($auburn, $slate);
+            }
+            &:active {
+                background: mix($auburn, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-orange, &.bg-freelancing {
+        background: $orange;
+        &:hover, &:focus {
+            background: mix($orange, white);
+            color: mix($orange, $slate);
+        }
+        &:active {
+            background: mix($orange, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $orange;
+            &:hover, &:focus {
+                background: mix($orange, white);
+                color: mix($orange, $slate);
+            }
+            &:active {
+                background: mix($orange, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-gold, &.bg-baking {
+        background: $gold;
+        &:hover, &:focus {
+            background: mix($gold, white);
+            color: mix($gold, $slate);
+        }
+        &:active {
+            background: mix($gold, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $gold;
+            &:hover, &:focus {
+                background: mix($gold, white);
+                color: mix($gold, $slate);
+            }
+            &:active {
+                background: mix($gold, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-moola, &.bg-photography {
+        background: $moola;
+        &:hover, &:focus {
+            background: mix($moola, white);
+            color: mix($moola, $slate);
+        }
+        &:active {
+            background: mix($moola, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $moola;
+            &:hover, &:focus {
+                background: mix($moola, white);
+                color: mix($moola, $slate);
+            }
+            &:active {
+                background: mix($moola, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-azure, &.bg-tech {
+        background: $azure;
+        &:hover, &:focus {
+            background: mix($azure, white);
+            color: mix($azure, $slate);
+        }
+        &:active {
+            background: mix($azure, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $azure;
+            &:hover, &:focus {
+                background: mix($azure, white);
+                color: mix($azure, $slate);
+            }
+            &:active {
+                background: mix($azure, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-cobalt, &.bg-household {
+        background: $cobalt;
+        &:hover, &:focus {
+            background: mix($cobalt, white);
+            color: mix($cobalt, $slate);
+        }
+        &:active {
+            background: mix($cobalt, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $cobalt;
+            &:hover, &:focus {
+                background: mix($cobalt, white);
+                color: mix($cobalt, $slate);
+            }
+            &:active {
+                background: mix($cobalt, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-eggplant, &.bg-athletic {
+        background: $eggplant;
+        &:hover, &:focus {
+            background: mix($eggplant, white);
+            color: mix($eggplant, $slate);
+        }
+        &:active {
+            background: mix($eggplant, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $eggplant;
+            &:hover, &:focus {
+                background: mix($eggplant, white);
+                color: mix($eggplant, $slate);
+            }
+            &:active {
+                background: mix($eggplant, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-cerise, &.bg-academic {
+        background: $cerise;
+        &:hover, &:focus {
+            background: mix($cerise, white);
+            color: mix($cerise, $slate);
+        }
+        &:active {
+            background: mix($cerise, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $cerise;
+            &:hover, &:focus {
+                background: mix($cerise, white);
+                color: mix($cerise, $slate);
+            }
+            &:active {
+                background: mix($cerise, $slate);
+                color: white;
+            }
+        }
+    }
+    &.bg-fb {
+        background: $facebook;
+        &:hover, &:focus {
+            background: mix($facebook, white);
+            color: mix($facebook, $slate);
+        }
+        &:active {
+            background: mix($facebook, $slate);
+            color: white;
+        }
+        &.reverse {
+            background: white;
+            color: $facebook;
+            &:hover, &:focus {
+                background: mix($facebook, white);
+                color: mix($facebook, $slate);
+            }
+            &:active {
+                background: mix($facebook, $slate);
+                color: white;
+            }
+        }
+    }
+}
+button.disabled {
+    @include opacity(.7);
+}
+
+// ghost buttons
+[class*="btn-ghost"] {
+    @include round;
+    width: auto;
+    height: auto;
+    background: transparent;
+    padding: 10px 30px;
+    border: 2px solid;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    &:hover, &:focus {
+        background: white;
+        color: $charcoal;
+    }
+    &:active {
+        border-color: lighten($slate, 15%);
+        background: lighten($slate, 15%);
+        color: white;
+    }
+    &[class*="btn-ghost-charcoal"] {
+        color: $charcoal;
+        border-color: $charcoal;
+        &:hover, &:focus {
+            border-color: $charcoal;
+            background: $charcoal;
+            color: white;
+        }
+        &:active {
+            border-color: mix($charcoal, white);
+            background: mix($charcoal, white);
+            color: $charcoal;
+        }
+    }
+    &[class*="btn-ghost-slate"] {
+        color: $slate;
+        border-color: $slate;
+        &:hover, &:focus {
+            border-color: $slate;
+            background: $slate;
+            color: white;
+        }
+        &:active {
+            border-color: mix($slate, white);
+            background: mix($slate, white);
+            color: $slate;
+        }
+    }
+    &[class*="btn-ghost-taupe"] {
+        color: $taupe;
+        border-color: $taupe;
+        &:hover, &:focus {
+            border-color: $taupe;
+            background: $taupe;
+            color: white;
+        }
+        &:active {
+            border-color: mix($taupe, white);
+            background: mix($taupe, white);
+            color: $taupe;
+        }
+    }
+    &[class*="btn-ghost-campus"] {
+        color: $campus;
+        border-color: $campus;
+        &:hover, &:focus {
+            border-color: $campus;
+            background: $campus;
+            color: white;
+        }
+        &:active {
+            border-color: mix($campus, white);
+            background: mix($campus, white);
+            color: mix($campus, $slate);
+        }
+    }
+    &[class*="btn-ghost-smoke"] {
+        color: $smoke;
+        border-color: $smoke;
+        &:hover, &:focus {
+            border-color: $smoke;
+            background: $smoke;
+            color: white;
+        }
+        &:active {
+            border-color: lighten($slate, 15%);
+            background: lighten($slate, 15%);
+            color: white;
+        }
+    }
+    &[class*="btn-ghost-white"] {
+        color: white;
+        border-color: white;
+        &:hover, &:focus {
+            border-color: white;
+            background: white;
+            color: $charcoal;
+        }
+        &:active {
+            border-color: lighten($slate, 15%);
+            background: lighten($slate, 15%);
+            color: white;
+        }
+    }
+    &[class*="btn-ghost-rocket"] {
+        color: $rocket;
+        border-color: $rocket;
+        &:hover, &:focus {
+            border-color: $rocket;
+            background: $rocket;
+            color: white;
+        }
+        &:active {
+            border-color: mix($rocket, white);
+            background: mix($rocket, white);
+            color: mix($rocket, $slate);
+        }
+    }
+    &[class*="btn-ghost-shamrock"] {
+        color: $shamrock;
+        border-color: $shamrock;
+        &:hover, &:focus {
+            border-color: $shamrock;
+            background: $shamrock;
+            color: white;
+        }
+        &:active {
+            border-color: mix($shamrock, white);
+            background: mix($shamrock, white);
+            color: mix($shamrock, $slate);
+        }
+    }
+    &[class*="btn-ghost-robin"] {
+        color: $robin;
+        border-color: $robin;
+        &:hover, &:focus {
+            border-color: $robin;
+            background: $robin;
+            color: white;
+        }
+        &:active {
+            border-color: mix($robin, white);
+            background: mix($robin, white);
+            color: mix($robin, $slate);
+        }
+    }
+    &[class*="btn-ghost-lake"] {
+        color: $lake;
+        border-color: $lake;
+        &:hover, &:focus {
+            border-color: $lake;
+            background: $lake;
+            color: white;
+        }
+        &:active {
+            border-color: mix($lake, white);
+            background: mix($lake, white);
+            color: mix($lake, $slate);
+        }
+    }
+    &[class*="btn-ghost-moxie"] {
+        color: $moxie;
+        border-color: $moxie;
+        &:hover, &:focus {
+            border-color: $moxie;
+            background: $moxie;
+            color: white;
+        }
+        &:active {
+            border-color: mix($moxie, white);
+            background: mix($moxie, white);
+            color: mix($moxie, $slate);
+        }
+    }
+    &[class*="btn-ghost-crimson"] {
+        color: $crimson;
+        border-color: $crimson;
+        &:hover, &:focus {
+            border-color: $crimson;
+            background: $crimson;
+            color: white;
+        }
+        &:active {
+            border-color: mix($crimson, white);
+            background: mix($crimson, white);
+            color: mix($crimson, $slate);
+        }
+    }
+    &[class*="btn-ghost-auburn"], &[class*="btn-ghost-delivery"] {
+        color: $auburn;
+        border-color: $auburn;
+        &:hover, &:focus {
+            border-color: $auburn;
+            background: $auburn;
+            color: white;
+        }
+        &:active {
+            border-color: mix($auburn, white);
+            background: mix($auburn, white);
+            color: mix($auburn, $slate);
+        }
+    }
+    &[class*="btn-ghost-orange"], &[class*="btn-ghost-freelancing"] {
+        color: $orange;
+        border-color: $orange;
+        &:hover, &:focus {
+            border-color: $orange;
+            background: $orange;
+            color: white;
+        }
+        &:active {
+            border-color: mix($orange, white);
+            background: mix($orange, white);
+            color: mix($orange, $slate);
+        }
+    }
+    &[class*="btn-ghost-gold"], &[class*="btn-ghost-baking"] {
+        color: $gold;
+        border-color: $gold;
+        &:hover, &:focus {
+            border-color: $gold;
+            background: $gold;
+            color: white;
+        }
+        &:active {
+            border-color: mix($gold, white);
+            background: mix($gold, white);
+            color: mix($gold, $slate);
+        }
+    }
+    &[class*="btn-ghost-moola"], &[class*="btn-ghost-photography"] {
+        color: $moola;
+        border-color: $moola;
+        &:hover, &:focus {
+            border-color: $moola;
+            background: $moola;
+            color: white;
+        }
+        &:active {
+            border-color: mix($moola, white);
+            background: mix($moola, white);
+            color: mix($moola, $slate);
+        }
+    }
+    &[class*="btn-ghost-azure"], &[class*="btn-ghost-tech"] {
+        color: $azure;
+        border-color: $azure;
+        &:hover, &:focus {
+            border-color: $azure;
+            background: $azure;
+            color: white;
+        }
+        &:active {
+            border-color: mix($azure, white);
+            background: mix($azure, white);
+            color: mix($azure, $slate);
+        }
+    }
+    &[class*="btn-ghost-cobalt"], &[class*="btn-ghost-cobalt"] {
+        color: $cobalt;
+        border-color: $cobalt;
+        &:hover, &:focus {
+            border-color: $cobalt;
+            background: $cobalt;
+            color: white;
+        }
+        &:active {
+            border-color: mix($cobalt, white);
+            background: mix($cobalt, white);
+            color: mix($cobalt, $slate);
+        }
+    }
+    &[class*="btn-ghost-eggplant"], &[class*="btn-ghost-athletic"] {
+        color: $eggplant;
+        border-color: $eggplant;
+        &:hover, &:focus {
+            border-color: $eggplant;
+            background: $eggplant;
+            color: white;
+        }
+        &:active {
+            border-color: mix($eggplant, white);
+            background: mix($eggplant, white);
+            color: mix($eggplant, $slate);
+        }
+    }
+    &[class*="btn-ghost-cerise"], &[class*="btn-ghost-academic"] {
+        color: $cerise;
+        border-color: $cerise;
+        &:hover, &:focus {
+            border-color: $cerise;
+            background: $cerise;
+            color: white;
+        }
+        &:active {
+            border-color: mix($cerise, white);
+            background: mix($cerise, white);
+            color: mix($cerise, $slate);
+        }
+    }
+    &[class*="btn-ghost-fb"] {
+        color: $facebook;
+        border-color: $facebook;
+        &:hover, &:focus {
+            border-color: $facebook;
+            background: $facebook;
+            color: white;
+        }
+        &:active {
+            border-color: mix($facebook, white);
+            background: mix($facebook, white);
+            color: mix($facebook, $slate);
+        }
+    }
+}
+
+body {
+    margin: 0;
+}
+
+// pen
+main.pen-desc {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background: $slate;
+    h1 {
+        margin: 0;
+        color: white;
+        font-family: $font;
+        font-weight: 600;
+        font-size: 10vw;
+        line-height: 1;
+    }
+}
